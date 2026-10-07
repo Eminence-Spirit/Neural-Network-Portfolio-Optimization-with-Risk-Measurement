@@ -20,17 +20,19 @@ The portfolio allocation strategy uses a neural network to determine the allocat
 
 At each time step, the model receives historical market information and produces a set of portfolio weights:
 
-\[
-w_t = (w_{1,t}, w_{2,t}, \ldots, w_{N,t}),
-\]
+```math
+w_t = (w_{1,t}, w_{2,t}, \ldots, w_{N,t})
+```
 
-where \(w_{i,t}\) represents the allocation to asset \(i\) at time \(t\).
+where $w_{i,t}$ represents the allocation to asset $i$ at time $t$.
 
-The portfolio return is then determined by the weighted returns of the individual assets:
+The portfolio return is determined by the weighted returns of the individual assets:
 
-\[
-R_{p,t} = \sum_{i=1}^{N} w_{i,t}R_{i,t}.
-\]
+```math
+R_{p,t} = \sum_{i=1}^{N} w_{i,t}R_{i,t}
+```
+
+where $R_{i,t}$ is the return of asset $i$ at time $t$.
 
 The model is trained using an objective that balances portfolio performance with the stability of the resulting allocations.
 
@@ -38,25 +40,25 @@ The model is trained using an objective that balances portfolio performance with
 
 A key component of the objective is the turnover penalty. Turnover measures how much the portfolio allocation changes between consecutive periods:
 
-\[
+```math
 \text{Turnover}_t =
 \sum_{i=1}^{N}
-|w_{i,t} - w_{i,t-1}|.
-\]
+\left|w_{i,t} - w_{i,t-1}\right|
+```
 
 The optimization objective therefore incorporates a penalty proportional to turnover:
 
-\[
+```math
 \mathcal{L}
 =
 \text{Portfolio Objective}
 +
-\lambda \cdot \text{Turnover}.
-\]
+\lambda \cdot \text{Turnover}
+```
 
-The parameter \(\lambda\) controls the strength of this penalty.
+The parameter $\lambda$ controls the strength of this penalty.
 
-A larger value of \(\lambda\) makes the model more conservative about changing allocations, producing a more stable portfolio but potentially reducing responsiveness to changes in market conditions. A smaller value allows the model to change allocations more freely in pursuit of higher returns.
+A larger value of $\lambda$ makes the model more conservative about changing allocations, producing a more stable portfolio but potentially reducing responsiveness to changes in market conditions. A smaller value allows the model to change allocations more freely in pursuit of higher returns.
 
 This provides a way to account for the practical consequences of frequent portfolio rebalancing rather than evaluating the strategy purely based on theoretical returns.
 
